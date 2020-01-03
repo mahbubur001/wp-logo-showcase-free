@@ -174,7 +174,7 @@ if ( ! class_exists( 'rtWLSOptions' ) ):
 					'name'  => 'wls_primary_color',
 					'label' => __( 'Primary color', 'wp-logo-showcase' ),
 				),
-                'title_color' => array(
+				'title_color'   => array(
 					'type'  => 'colorpicker',
 					'name'  => 'wls_title_color',
 					'label' => __( 'Title color', 'wp-logo-showcase' ),
@@ -378,6 +378,18 @@ if ( ! class_exists( 'rtWLSOptions' ) ):
 					'placeholder' => __( "Alt for url and image", 'wp-logo-showcase' )
 				)
 			);
+		}
+
+		function get_pro_feature_list() {
+			return $html = '<ol>
+								<li>Isotope layout</li>
+				                <li>Carousel Slider with multiple features.</li>
+				                <li>Custom Logo Re-sizing.</li>
+				                <li>Drag & Drop Layout builder.</li>
+				                <li>Drag & Drop Logo ordering.</li>
+				                <li>Tooltip Enable/Disable option.</li>
+							</ol>
+						<a href="https://1.envato.market/4jmQ9" class="rt-admin-btn" target="_blank">Get Pro Version</a>';
 		}
 	}
 

@@ -16,6 +16,7 @@ if ( ! class_exists( 'rtWLSSCMeta' ) ):
 	class rtWLSSCMeta {
 
 		function __construct() {
+			add_action( 'add_meta_boxes', array( $this, 'sc_meta_boxes' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 			add_action( 'save_post', array( $this, 'save_team_sc_meta_data' ), 10, 3 );
 			add_action( 'edit_form_after_title', array( $this, 'wls_sc_after_title' ) );
@@ -92,11 +93,11 @@ if ( ! class_exists( 'rtWLSSCMeta' ) ):
 			global $wp_meta_boxes, $rtWLS;
 			$publishBox                           = $wp_meta_boxes[ $rtWLS->shortCodePT ]['side']['core']['submitdiv'];
 			$scBox                                = $wp_meta_boxes[ $rtWLS->shortCodePT ]['normal']['high'][ $rtWLS->shortCodePT . '_sc_settings_meta' ];
-			$scInfoBox                            = $wp_meta_boxes[ $rtWLS->shortCodePT ]['side']['low'][ $rtWLS->shortCodePT . '_sc_pro_info' ];
+			$docBox                               = $wp_meta_boxes[ $rtWLS->shortCodePT ]['side']['low']['rt_plugin_sc_pro_information'];
 			$wp_meta_boxes[ $rtWLS->shortCodePT ] = array(
 				'side'   => array(
-					'core' => array( 'submitdiv' => $publishBox ),
-					'low' => array( $rtWLS->shortCodePT . '_sc_pro_info' => $scInfoBox )
+					'core' => [ 'submitdiv' => $publishBox ],
+					'low'  => [ 'rt_plugin_sc_pro_information' => $docBox ]
 				),
 				'normal' => array(
 					'high' => array(
@@ -147,14 +148,9 @@ if ( ! class_exists( 'rtWLSSCMeta' ) ):
 					'ajaxurl' => admin_url( 'admin-ajax.php' )
 				) );
 
-			add_action( 'admin_head', array( $this, 'admin_head' ) );
-
 		}
 
-		/**
-		 * Create the custom meta box for ShortCode post type
-		 */
-		function admin_head() {
+		function sc_meta_boxes() {
 
 			global $rtWLS;
 			add_meta_box(
@@ -165,14 +161,14 @@ if ( ! class_exists( 'rtWLSSCMeta' ) ):
 				'normal',
 				'high' );
 
-
 			add_meta_box(
-				$rtWLS->shortCodePT . '_sc_pro_info',
-				__( 'Wp Logo Showcase Pro Info', 'wp-logo-showcase' ),
-				array( $this, 'wls_sc_pro_information' ),
+				'rt_plugin_sc_pro_information',
+				__( 'Documentation', 'wp-logo-showcase' ),
+				array( $this, 'rt_plugin_sc_pro_information' ),
 				$rtWLS->shortCodePT,
 				'side',
-				'low' );
+				'low'
+			);
 		}
 
 
@@ -182,20 +178,22 @@ if ( ! class_exists( 'rtWLSSCMeta' ) ):
 		 */
 		function wls_sc_pro_information() {
 			?>
-			<ol>
-				<li>Isotope layout</li>
-				<li>Carousel Slider with multiple features.</li>
-				<li>Custom Logo Re-sizing.</li>
-				<li>Drag & Drop Layout builder.</li>
-				<li>Drag & Drop Logo ordering.</li>
-				<li>Custom Link for each Logo.</li>
-				<li>Category wise Isotope Filtering.</li>
-				<li>Tooltip Enable/Disable option.</li>
-				<li>Box Highlight Enable/Disable.</li>
-				<li>Center Mode available.</li>
-				<li>RTL Supported.</li>
-			</ol>
-			<p><a target="_blank" href="https://codecanyon.net/item/wp-logo-showcase-responsive-wp-plugin/16396329?ref=RadiusTheme" class="rt-pro-link">Get Pro Version</a></p>
+            <ol>
+                <li>Isotope layout</li>
+                <li>Carousel Slider with multiple features.</li>
+                <li>Custom Logo Re-sizing.</li>
+                <li>Drag & Drop Layout builder.</li>
+                <li>Drag & Drop Logo ordering.</li>
+                <li>Custom Link for each Logo.</li>
+                <li>Category wise Isotope Filtering.</li>
+                <li>Tooltip Enable/Disable option.</li>
+                <li>Box Highlight Enable/Disable.</li>
+                <li>Center Mode available.</li>
+                <li>RTL Supported.</li>
+            </ol>
+            <p><a target="_blank"
+                  href="https://codecanyon.net/item/wp-logo-showcase-responsive-wp-plugin/16396329?ref=RadiusTheme"
+                  class="rt-pro-link">Get Pro Version</a></p>
 			<?php
 		}
 
@@ -210,89 +208,59 @@ if ( ! class_exists( 'rtWLSSCMeta' ) ):
 			$html = null;
 			$html .= '<div class="rt-tab-container">';
 			$html .= '<ul class="rt-tab-nav">
-                            <li><a href="#sc-wls-layout">' . __( 'Layout Settings', 'wp-logo-showcase' ) . '</a></li>
-                            <li><a href="#sc-wls-filter">' . __( 'Logo Filtering', 'wp-logo-showcase' ) . '</a></li>
-                            <li><a href="#sc-wls-field-selection">' . __( 'Field Selection', 'wp-logo-showcase' ) . '</a></li>
-                            <li><a href="#sc-wls-style">' . __( 'Styling', 'wp-logo-showcase' ) . '</a></li>
+                            <li><a href="#sc-wls-layout"><i class="dashicons dashicons-layout"></i>' . __( 'Layout', 'wp-logo-showcase' ) . '</a></li>
+                            <li><a href="#sc-wls-filter"><i class="dashicons dashicons-filter"></i>' . __( 'Filtering', 'wp-logo-showcase' ) . '</a></li>
+                            <li><a href="#sc-wls-field-selection"><i class="dashicons dashicons-editor-table"></i>' . __( 'Field Selection', 'wp-logo-showcase' ) . '</a></li>
+                            <li><a href="#sc-wls-style"><i class="dashicons dashicons-admin-customizer"></i>' . __( 'Styling', 'wp-logo-showcase' ) . '</a></li>
                           </ul>';
-			$html .= '<div id="sc-wls-layout" class="rt-tab-content">';
-			$html .= $this->rt_wls_sc_layout_meta();
-			$html .= '</div>';
+			$html .= sprintf( '<div id="sc-wls-layout" class="rt-tab-content">%s</div>', $rtWLS->rtFieldGenerator( $rtWLS->scLayoutMetaFields(), true ) );
 
-			$html .= '<div id="sc-wls-filter" class="rt-tab-content">';
-			$html .= $this->rt_wls_sc_filter_meta();
-			$html .= '</div>';
+			$html .= sprintf( '<div id="sc-wls-filter" class="rt-tab-content">%s</div>', $rtWLS->rtFieldGenerator( $rtWLS->scFilterMetaFields(), true ) );
 
-			$html .= '<div id="sc-wls-field-selection" class="rt-tab-content">';
-			$html .= $this->rt_wls_sc_field_selection_meta();
-			$html .= '</div>';
+			$html .= sprintf( '<div id="sc-wls-field-selection" class="rt-tab-content">%s</div>', $rtWLS->rtFieldGenerator( $rtWLS->scFieldSelectionMetaFields(), true ) );
 
-			$html .= '<div id="sc-wls-style" class="rt-tab-content">';
-			$html .= $this->rt_wls_sc_style_meta( $post );
-			$html .= '</div>';
+			$html .= sprintf( '<div id="sc-wls-style" class="rt-tab-content">%s</div>', $rtWLS->rtFieldGenerator( $rtWLS->scStyleFields(), true ) );
 			$html .= '</div>';
 
 			echo $html;
 		}
 
-		/**
-		 * Filter Section
-		 * @return null|string
-		 */
-		function rt_wls_sc_filter_meta() {
-			global $rtWLS;
-			$html = null;
-			$html .= "<div class='rt-sc-meta-field-holder'>";
-			$html .= $rtWLS->rtFieldGenerator( $rtWLS->scFilterMetaFields(), true );
-			$html .= "</div>";
+		function rt_plugin_sc_pro_information( $post ) {
 
-			return $html;
+			$html = sprintf( '<div class="rt-document-box">
+							<div class="rt-box-icon"><i class="dashicons dashicons-media-document"></i></div>
+							<div class="rt-box-content">
+                    			<h3 class="rt-box-title">%1$s</h3>
+                    				<p>%2$s</p>
+                        			<a href="https://www.radiustheme.com/setup-wp-logo-showcase-free-version-wordpress/" target="_blank" class="rt-admin-btn">%1$s</a>
+                			</div>
+						</div>',
+				__( "Documentation", 'wp-logo-showcase' ),
+				__( "Get started by spending some time with the documentation we included step by step process with screenshots with video.", 'wp-logo-showcase' )
+			);
+
+			$html .= '<div class="rt-document-box">
+							<div class="rt-box-icon"><i class="dashicons dashicons-sos"></i></div>
+							<div class="rt-box-content">
+                    			<h3 class="rt-box-title">Need Help?</h3>
+                    				<p>Stuck with something? Please create a 
+                        <a href="https://www.radiustheme.com/contact/">ticket here</a> or post on <a href="https://www.facebook.com/groups/234799147426640/">facebook group</a>. For emergency case join our <a href="https://www.radiustheme.com/">live chat</a>.</p>
+                        			<a href="https://www.radiustheme.com/contact/" target="_blank" class="rt-admin-btn">Get Support</a>
+                			</div>
+						</div>';
+
+			if ( $post === 'settings' ) {
+				$html .= '<div class="rt-document-box rt-update-pro-btn-wrap">
+                <a href="https://1.envato.market/4jmQ9" target="_blank" class="rt-update-pro-btn">Update Pro To Get More Features</a>
+            </div>';
+			} else {
+				global $rtWLS;
+				$html .= sprintf( '<div class="rt-document-box"><div class="rt-box-icon"><i class="dashicons dashicons-megaphone"></i></div><div class="rt-box-content"><h3 class="rt-box-title">Pro Feature</h3>%s</div></div>', $rtWLS->get_pro_feature_list() );
+			}
+
+			echo $html;
 		}
 
-		/**
-		 * Filter Section
-		 * @return null|string
-		 */
-		function rt_wls_sc_field_selection_meta() {
-			global $rtWLS;
-			$html = null;
-			$html .= "<div class='rt-sc-meta-field-holder'>";
-			$html .= $rtWLS->rtFieldGenerator( $rtWLS->scFieldSelectionMetaFields(), true );
-			$html .= "</div>";
-
-			return $html;
-		}
-
-		/**
-		 * Layout section
-		 * @return null|string
-		 */
-		function rt_wls_sc_layout_meta() {
-			global $rtWLS;
-			$html = null;
-			$html .= "<div class='rt-sc-meta-field-holder'>";
-			$html .= $rtWLS->rtFieldGenerator( $rtWLS->scLayoutMetaFields(), true );
-			$html .= "</div>"; // End
-			return $html;
-		}
-
-
-		/**
-		 * Style section
-		 *
-		 * @param $post
-		 *
-		 * @return null|string
-		 */
-		function rt_wls_sc_style_meta() {
-			global $rtWLS;
-			$html = null;
-			$html .= "<div class='rt-sc-meta-field-holder'>";
-			$html .= $rtWLS->rtFieldGenerator( $rtWLS->scStyleFields(), true );
-			$html .= "</div>"; // End
-			return $html;
-
-		}
 
 		/**
 		 * Save all the meta value for shortCode meta field

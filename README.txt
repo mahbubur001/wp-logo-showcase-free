@@ -3,8 +3,8 @@ Contributors: techlabpro1
 Donate link:
 Tags: wp logo slider, logo, logo slider, showcase, logo showcase, carousel, client logo, partner logo display
 Requires at least: 4.5
-Tested up to: 5.2
-Stable tag: 1.3.31
+Tested up to: 5.3
+Stable tag: 1.3.32
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
