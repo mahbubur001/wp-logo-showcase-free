@@ -12,14 +12,19 @@
             </h3>
         </div>
         <div class="rt-setting-content">
-            <form id="rt-wls-settings-form" onsubmit="rtWLSSettings(this); return false;">
+            <div class="rt-response"></div>
+            <form id="rt-wls-settings-form">
                 <div class="rt-tab-container">
                     <ul class="rt-tab-nav">
                         <li>
-                            <a href="#s-wls-general"><?php esc_html_e( 'General Settings', 'wp-services-showcase' ); ?></a>
+                            <a href="#s-wls-general"><i
+                                        class="dashicons dashicons-layout"></i><?php esc_html_e( 'General Settings', 'wp-services-showcase' ); ?>
+                            </a>
                         </li>
                         <li>
-                            <a href="#s-wls-custom-css"><?php esc_html_e( 'Custom CSS', 'wp-services-showcase' ); ?></a>
+                            <a href="#s-wls-custom-css"><i
+                                        class="dashicons dashicons-admin-customizer"></i><?php esc_html_e( 'Custom CSS', 'wp-services-showcase' ); ?>
+                            </a>
                         </li>
                     </ul>
                     <div id="s-wls-general" class="rt-tab-content">
@@ -30,7 +35,9 @@
                     </div>
                 </div>
                 <p class="submit">
-                    <input type="submit" name="submit" class="rt-admin-btn button button-primary"
+                    <input type="submit"
+                           name="submit"
+                           class="rt-admin-btn button button-primary"
                            id="rtSaveButton"
                            value="Save Changes">
                 </p>

@@ -176,18 +176,18 @@ if ( ! class_exists( 'rtWLSField' ) ):
 		private function customCss() {
 			$h = null;
 			$h .= '<div class="rt-custom-css">';
+			$h .= '<p class="description" style="color: red">Please use default customizer to add your css. This option is deprecated.</p>';
+
 			$h .= '<div class="custom_css_container">';
 			$h .= "<div name='{$this->name}' id='ret-" . mt_rand() . "' class='custom-css'>";
 			$h .= '</div>';
 			$h .= '</div>';
-
 			$h .= "<textarea
                         style='display: none;'
                         class='custom_css_textarea'
                         id='{$this->id}'
                         name='{$this->name}'
                         >{$this->value}</textarea>";
-			$h .= '<p class="description" style="color: red">Please use default customizer to add your css. This option is deprecated.</p>';
 			$h .= '</div>';
 
 			return $h;

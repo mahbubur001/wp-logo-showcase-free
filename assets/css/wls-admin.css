@@ -384,6 +384,10 @@ input.large-text.code.rt-code-sc {
     border-left-color: #dc3232;
 }
 
+.rt-loading {
+    background: url('../images/loading.gif') no-repeat center center;
+    padding: 11px;
+}
 /************************** Others End **************************/
 
 
