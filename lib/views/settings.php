@@ -1,7 +1,6 @@
 <?php global $rtWLS; ?>
 
 <div class="wrap">
-    <div id="upf-icon-edit-pages" class="icon32 icon32-posts-page"><br/></div>
     <h2><?php esc_html_e( 'WP Logo Showcase Settings', 'wp-services-showcase' ); ?></h2>
     <div class="rt-settings-container">
         <div class="rt-setting-title">

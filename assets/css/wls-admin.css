@@ -385,3 +385,49 @@ input.large-text.code.rt-code-sc {
 }
 
 /************************** Others End **************************/
+
+
+/* ------------------------------------------------------------------------- *
+ *  Media Query
+/* ------------------------------------------------------------------------- */
+@media (max-width: 1199px) {
+    .rt-update-pro-btn-wrap .rt-update-pro-btn {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .rt-update-pro-btn-wrap .rt-update-pro-btn {
+        font-size: 18px;
+    }
+
+    .rt-pro-feature-content {
+        flex-direction: column;
+    }
+
+    .rt-settings-container .rt-document-box + .rt-document-box {
+        margin-top: 30px;
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 479px) {
+    .rt-update-pro-btn-wrap .rt-update-pro-btn {
+        font-size: 16px;
+    }
+
+    .rt-field-wrapper {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .rt-label {
+        flex: 1;
+        padding: 0;
+        margin-bottom: 10px;
+    }
+
+    .rt-field {
+        padding: 0;
+    }
+}
