@@ -3,8 +3,8 @@ Contributors: techlabpro1
 Donate link:
 Tags: wp logo slider, logo, logo slider, showcase, logo showcase, carousel, client logo, partner logo display
 Requires at least: 4.5
-Tested up to: 5.4
-Stable tag: 1.3.33
+Tested up to: 5.7
+Stable tag: 1.3.34
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -105,6 +105,9 @@ For any bug or suggestion please mail support@radiustheme.com
 
 
 == Changelog ==
+
+= 1.3.34 =
+* Add WordPress 5.7 Support
 
 = 1.3.33 =
 * Compatible  with latest WP

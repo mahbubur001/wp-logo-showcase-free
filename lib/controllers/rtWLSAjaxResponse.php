@@ -31,7 +31,7 @@ if(!class_exists('rtWLSAjaxResponse')):
                 $value = array();
                 $fields = $rtWLS->allSettingsFields();
                 foreach($fields as $field){
-                    $type = $fields['type'];
+                    $type = !empty($fields['type']) ? $fields['type'] : '';
                     $rValue = (!empty($_REQUEST[$field['name']]) ? $_REQUEST[$field['name']] : null);
                     if( $type == 'custom_css'){
                         $value[$field['name']] = wp_filter_nohtml_kses($rValue);

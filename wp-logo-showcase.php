@@ -4,7 +4,7 @@
  * Plugin URI: https://radiustheme.com/
  * Description: Logo Slider and Showcase plugin is fully Responsive and Mobile Friendly to display your partner logo in slider and grid views.
  * Author: RadiusTheme
- * Version: 1.3.33
+ * Version: 1.3.34
  * Text Domain: wp-logo-showcase
  * Domain Path: /languages
  * Author URI: https://radiustheme.com/
